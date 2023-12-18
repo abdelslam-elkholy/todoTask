@@ -110,3 +110,19 @@ export const deleteTodo = async (
     next(new AppError(error.message, 400));
   }
 };
+
+export const getAllTodos = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const todos = await Todo.find({ owner: req.body.id });
+    res.status(200).json({
+      status: "success",
+      todos,
+    });
+  } catch (error: any) {
+    next(new AppError(error.message, 400));
+  }
+};
